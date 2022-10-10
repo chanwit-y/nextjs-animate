@@ -9,9 +9,9 @@ type Props = {
 export const Column = ({ initData }: Props) => {
   return (
     <Droppable droppableId="droppable">
-      {(provided, snapshot) => (
+      {(provided ) => (
         <div {...provided.droppableProps} ref={provided.innerRef}>
-          {initData.map((item, index) => (
+          {initData.map !== undefined ?  initData.map((item, index) => (
             <Draggable
               key={item.id}
               draggableId={item.id.toString()}
@@ -19,22 +19,22 @@ export const Column = ({ initData }: Props) => {
             >
               {(draggableProvided, snapshot) => (
                 <div
-                  {...draggableProvided.dragHandleProps}
-                  {...draggableProvided.draggableProps}
-                  ref={draggableProvided.innerRef}
                   style={{
-                    display: "flex",
+                //     display: "flex",
                     width: 80,
-                    backgroundColor: "red",
+                    backgroundColor: snapshot.isDragging ? "pink" : "red",
                     padding: 4,
                     margin: 2,
                   }}
+		{...draggableProvided.dragHandleProps}
+		{...draggableProvided.draggableProps}
+		ref={draggableProvided.innerRef}
                 >
                   {item.name}
                 </div>
               )}
             </Draggable>
-          ))}
+          )) : null}
         </div>
       )}
     </Droppable>
